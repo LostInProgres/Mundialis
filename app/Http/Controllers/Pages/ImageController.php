@@ -267,7 +267,7 @@ class ImageController extends Controller {
     public function postCreateEditImage(Request $request, ImageManager $service, $pageId, $id = null) {
         $id ? $request->validate(PageImage::$updateRules) : $request->validate(PageImage::$createRules);
         $data = $request->only([
-            'image', 'thumbnail', 'x0', 'x1', 'y0', 'y1', 'use_cropper',
+            'image', 'thumbnail', 'x0', 'x1', 'y0', 'y1', 'use_cropper', 'sale_value', 'transfer_type',
             'creator_id', 'creator_url', 'description', 'page_id',
             'is_valid', 'is_visible', 'mark_invalid', 'mark_active',
             'is_minor', 'reason',

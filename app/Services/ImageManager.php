@@ -357,6 +357,7 @@ class ImageManager extends Service {
         try {
             // Process data stored on the image
             $imageData['description'] = $data['description'] ?? null;
+            $imageData['sale_value'] = $data['sale_value'] ?? 0;
             $imageData['is_visible'] = isset($data['is_visible']);
 
             // If there's no preexisting image, create one
@@ -641,6 +642,8 @@ class ImageManager extends Service {
         $versionData = [
             'is_visible'  => $data['is_visible'],
             'description' => $data['description'],
+            'sale_value' => $data['sale_value'],
+            
         ];
 
         // Record creator information

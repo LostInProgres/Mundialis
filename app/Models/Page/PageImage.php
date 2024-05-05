@@ -15,7 +15,7 @@ class PageImage extends Model {
      * @var array
      */
     protected $fillable = [
-        'description', 'is_visible',
+        'description', 'is_visible', 'sale_value', 'transfer_type',
     ];
 
     /**

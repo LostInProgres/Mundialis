@@ -89,6 +89,17 @@
 
     <h3>Image Information</h3>
     <div class="form-group">
+        {!! Form::label('Resale Value') !!}
+        {!! Form::text('sale_value', $image->sale_value, ['class' => 'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('Type') !!}
+        {!! Form::select('obtained_trough', array('Commission' => 'Commission', 'Art Trade' => 'Art Trade', 'Art Game' => 'Art Game', 'Freebie' => 'Freebie', 'Original Purchase' => 'Original Purchase', 'Owner-made' => 'Owner-made'), $tag->getData()['consumable_type'], ['class' => 'form-control', 'id' => 'Type']) !!}
+    </div>
+
+
+    <h3>Image Information</h3>
+    <div class="form-group">
         {!! Form::label('Page(s) (Optional)') !!} {!! add_help('Pages to associate this image with <strong>in addition to</strong> this one.') !!}
         {!! Form::select(
             'page_id[]',
