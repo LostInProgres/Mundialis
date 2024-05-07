@@ -41,7 +41,7 @@
         </div>
         <div class="col-sm">
             <div class="pt-1">
-                ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->orderBy('is_valid', 'DESC')->sum('sale_value') }}
+                ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') }}
             </div>
         </div>
     </div>

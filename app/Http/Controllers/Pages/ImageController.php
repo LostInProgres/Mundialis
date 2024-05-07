@@ -36,7 +36,11 @@ class ImageController extends Controller {
             abort(404);
         }
 
-        $query = $page->images()->visible(Auth::check() ? Auth::user() : null)->orderBy('is_valid', 'DESC');
+        $query = $page->images()->visible(Auth::check() ? Auth::user() : null)
+        ->orderBy('is_valid', 'DESC')
+        ->orderBy('is_ref', 'DESC')
+        ->orderBy('is_featured', 'DESC')
+        ->orderBy('is_surpressed', 'ASC');
         $sort = $request->only(['sort']);
 
         if ($request->get('creator_url')) {
@@ -266,10 +270,12 @@ class ImageController extends Controller {
      */
     public function postCreateEditImage(Request $request, ImageManager $service, $pageId, $id = null) {
         $id ? $request->validate(PageImage::$updateRules) : $request->validate(PageImage::$createRules);
+        
         $data = $request->only([
             'image', 'thumbnail', 'x0', 'x1', 'y0', 'y1', 'use_cropper', 'sale_value', 'transfer_type',
             'creator_id', 'creator_url', 'description', 'page_id',
-            'is_valid', 'is_visible', 'mark_invalid', 'mark_active',
+            'is_valid', 'is_ref', 'is_featured', 'is_surpressed', 'is_visible', 
+            'mark_invalid', 'mark_active',
             'is_minor', 'reason',
         ]);
 

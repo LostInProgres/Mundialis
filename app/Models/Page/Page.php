@@ -88,7 +88,7 @@ class Page extends Model {
      * Get this page's images.
      */
     public function images() {
-        return $this->belongsToMany('App\Models\Page\PageImage')->using('App\Models\Page\PagePageImage')->withPivot('is_valid');
+        return $this->belongsToMany('App\Models\Page\PageImage')->using('App\Models\Page\PagePageImage')->withPivot('is_valid', 'is_ref', 'is_featured', 'is_surpressed');
     }
 
     /**
