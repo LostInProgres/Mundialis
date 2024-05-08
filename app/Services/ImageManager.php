@@ -44,9 +44,6 @@ class ImageManager extends Service {
             }
 
             // Process toggles
-            if (!isset($data['is_valid'])) {
-                $data['is_valid'] = 0;
-            }
             if (!isset($data['is_visible'])) {
                 $data['is_visible'] = 0;
             }
@@ -56,6 +53,21 @@ class ImageManager extends Service {
             if (!isset($data['mark_active'])) {
                 $data['mark_active'] = 0;
             }
+
+            if (!isset($data['is_valid'])) {
+                $data['is_valid'] = 0;
+            }
+            if (!isset($data['is_ref'])) {
+                $data['is_ref'] = 0;
+            }
+            if (!isset($data['is_featured'])) {
+                $data['is_featured'] = 0;
+            }
+            if (!isset($data['is_surpressed'])) {
+                $data['is_surpressed'] = 0;
+            }
+
+            $imageData['transfer_type'] = $data['transfer_type'] ?? null;
 
             // Set version type before moving into image creation
             $data['version_type'] = 'Image Created';
@@ -71,6 +83,9 @@ class ImageManager extends Service {
                 'page_id'       => $page->id,
                 'page_image_id' => $image->id,
                 'is_valid'      => $data['is_valid'],
+                'is_ref'      => $data['is_ref'],
+                'is_featured'      => $data['is_featured'],
+                'is_surpressed'      => $data['is_surpressed'],
             ]);
 
             // Update the page's image ID if relevant
@@ -138,11 +153,30 @@ class ImageManager extends Service {
                 $data['mark_active'] = 0;
             }
 
+            if (!isset($data['is_ref'])) {
+                $data['is_ref'] = 0;
+            }
+            if (!isset($data['is_featured'])) {
+                $data['is_featured'] = 0;
+            }
+            if (!isset($data['is_surpressed'])) {
+                $data['is_surpressed'] = 0;
+            }
+
+            $imageData['transfer_type'] = $data['transfer_type'] ?? null;
+
+
             // Process data and handle image
             $image = $this->handlePageImage($data, $page, $user, $image);
             if (!$image) {
                 throw new \Exception('An error occurred while trying to process image.');
             }
+
+            $page->images()->updateExistingPivot($image->id, [
+                'is_ref' => $data['is_ref'] ? 1 : 0,
+                'is_featured' => $data['is_ref'] ? 1 : 0,
+                'is_surpressed' => $data['is_surpressed'] ? 1 : 0
+            ]);
 
             // If image is being marked invalid, update
             if ($image->pages()->where('pages.id', $page->id)->first()->pivot->is_valid && !$data['is_valid']) {
@@ -189,6 +223,7 @@ class ImageManager extends Service {
                     }
                 }
             }
+
 
             return $this->commitReturn($image);
         } catch (\Exception $e) {
@@ -359,6 +394,10 @@ class ImageManager extends Service {
             $imageData['description'] = $data['description'] ?? null;
             $imageData['sale_value'] = $data['sale_value'] ?? 0;
             $imageData['is_visible'] = isset($data['is_visible']);
+            $imageData['transfer_type'] = $data['transfer_type'] ?? null;
+            $imageData['is_ref'] = isset($data['is_ref']);
+            $imageData['is_featured'] = isset($data['is_featured']);
+            $imageData['is_surpressed'] = isset($data['is_surpressed']);
 
             // If there's no preexisting image, create one
             if (!$image) {
@@ -516,6 +555,9 @@ class ImageManager extends Service {
                             'page_id'       => $pageId,
                             'page_image_id' => $image->id,
                             'is_valid'      => 1,
+                            'is_ref'      => $data['is_ref'],
+                            'is_featured'      => $data['is_featured'],
+                            'is_surpressed'      => $data['is_surpressed'],
                         ]);
                     }
                 } else {
@@ -532,6 +574,9 @@ class ImageManager extends Service {
                                 'page_id'       => $pageId,
                                 'page_image_id' => $image->id,
                                 'is_valid'      => 1,
+                                'is_ref'      => $data['is_ref'],
+                                'is_featured'      => $data['is_featured'],
+                                'is_surpressed'      => $data['is_surpressed'],
                             ]);
                         }
                     }
@@ -643,6 +688,11 @@ class ImageManager extends Service {
             'is_visible'  => $data['is_visible'],
             'description' => $data['description'],
             'sale_value' => $data['sale_value'],
+            'transfer_type' => $data['transfer_type'],
+            'is_ref' => $data['is_ref'],
+            'is_featured' => $data['is_featured'],
+            'is_surpressed' => $data['is_surpressed'],
+            
             
         ];
 

@@ -92,9 +92,22 @@
         {!! Form::label('Resale Value') !!}
         {!! Form::text('sale_value', $image->sale_value, ['class' => 'form-control']) !!}
     </div>
+
     <div class="form-group">
-        {!! Form::label('Type') !!}
-        {!! Form::select('obtained_trough', array('Commission' => 'Commission', 'Art Trade' => 'Art Trade', 'Art Game' => 'Art Game', 'Freebie' => 'Freebie', 'Original Purchase' => 'Original Purchase', 'Owner-made' => 'Owner-made'), $tag->getData()['consumable_type'], ['class' => 'form-control', 'id' => 'Type']) !!}
+        {!! Form::label('transfer type') !!}
+        {!! Form::select(
+            'transfer_type',
+            [
+                'commission' => 'Commission',
+                'art Trade' => 'Art Trade',
+                'art Game' => 'Art Game',
+                'freebie' => 'Freebie',
+                'owner' => 'Owner Made',
+                'original' => 'Original Purchase',
+            ],
+            $image['transfer_type'],
+            ['class' => 'form-control form-field-type', 'placeholder' => 'Select a Type'],
+        ) !!}
     </div>
 
 
@@ -148,6 +161,42 @@
     <div class="row">
         <div class="col-md">
             <div class="form-group">
+                {!! Form::checkbox('is_ref', 0, $image->id ? $image->pivot->is_ref : 0, [
+                    'class' => 'form-check-input',
+                    'data-toggle' => 'toggle',
+                ]) !!}
+                {!! Form::label('is_ref', 'Is Ref', ['class' => 'form-check-label ml-3']) !!} {!! add_help(
+                    'If this is turned on, the image will be marked as a reference and sorted first in the gallery.',
+                ) !!}
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group">
+                {!! Form::checkbox('is_featured', 1, $image->id ? $image->pivot->is_featured : 0, [
+                    'class' => 'form-check-input',
+                    'data-toggle' => 'toggle',
+                ]) !!}
+                {!! Form::label('is_featured', 'Is featured', ['class' => 'form-check-label ml-3']) !!} {!! add_help(
+                    'If this is turned on, the image will be marked as featured and sorted second in the gallery, after any images marked reference.',
+                ) !!}
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group">
+                {!! Form::checkbox('is_surpressed', 1, $image->id ? $image->pivot->is_surpressed : 0, [
+                    'class' => 'form-check-input',
+                    'data-toggle' => 'toggle',
+                ]) !!}
+                {!! Form::label('is_surpressed', 'Is surpressed', ['class' => 'form-check-label ml-3']) !!} {!! add_help(
+                    'If this is turned on, the image will be marked as surpressed and sorted last in the gallery, but before any invalid images.',
+                ) !!}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <div class="form-group">
                 {!! Form::checkbox('is_visible', 1, $image->id ? $image->is_visible : 1, [
                     'class' => 'form-check-input',
                     'data-toggle' => 'toggle',
@@ -171,7 +220,10 @@
         @if (!$image->id)
             <div class="col-md">
                 <div class="form-group">
-                    {!! Form::checkbox('mark_invalid', 1, 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+                    {!! Form::checkbox('mark_invalid', 1, 0, [
+                        'class' => 'form-check-input', 
+                        'data-toggle' => 'toggle']) 
+                    !!}
                     {!! Form::label('mark_invalid', 'Invalidate Old Images', ['class' => 'form-check-label ml-3']) !!} {!! add_help(
                         'If this is turned on, this page\'s old images will be marked invalid. This will not impact other pages that use the same image.',
                     ) !!}
@@ -185,7 +237,7 @@
                         $page->images()->where('page_images.id', $image->id)->first()->pivot->is_valid)))
             <div class="col-md">
                 <div class="form-group">
-                    {!! Form::checkbox('mark_active', 1, !$page->image_id || !$image->id ? 1 : 0, [
+                    {!! Form::checkbox('mark_active', 1, !$page->image_id || !$image->id ? 0 : 1, [
                         'class' => 'form-check-input',
                         'data-toggle' => 'toggle',
                     ]) !!}
