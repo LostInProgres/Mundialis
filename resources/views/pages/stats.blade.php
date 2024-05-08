@@ -32,10 +32,6 @@
                 <td>{{ $page->version->length }}</td>
             </tr>
             <tr>
-                <td>Length</td>
-                <td>{{ $page->version->length }}</td>
-            </tr>
-            <tr>
                 <td>Edits</td>
                 <td>{{ $page->version->where('page_id', $page->id)->count() }}</td>
             </tr>
@@ -86,8 +82,8 @@
                 <tr><th>Value</th><th></th></tr>
             </thead>
             <tr>
-                <td>Total</td>
-                <td>${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') }}</td>
+                <td>Purchased for</td>
+                <td>${{ $page->sale_value }}</td>
             </tr>
             <tr>
                 <td>Commissions</td>
@@ -100,6 +96,14 @@
             <tr>
                 <td>Owner-Made</td>
                 <td>${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->where('transfer_type', '=', 'owner')->sum('sale_value') }}</td>
+            </tr>
+            <tr>
+                <td>Total from images</td>
+                <td>${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') }}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') + $page->sale_value }}</td>
             </tr>
         </tbody>
     </table>

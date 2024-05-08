@@ -37,11 +37,11 @@
 @endforeach
 <div class="row mb-2">
         <div class="col-sm-5 bg-dark text-light rounded pt-1">
-            <h6><strong>Art Value</strong></h6>
+            <h6><strong>Total Value</strong></h6>
         </div>
         <div class="col-sm">
             <div class="pt-1">
-                ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') }}
+            ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') + $page->sale_value }}
             </div>
         </div>
     </div>
