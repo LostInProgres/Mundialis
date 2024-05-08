@@ -174,7 +174,7 @@ class ImageManager extends Service {
 
             $page->images()->updateExistingPivot($image->id, [
                 'is_ref' => $data['is_ref'] ? 1 : 0,
-                'is_featured' => $data['is_ref'] ? 1 : 0,
+                'is_featured' => $data['is_featured'] ? 1 : 0,
                 'is_surpressed' => $data['is_surpressed'] ? 1 : 0
             ]);
 
