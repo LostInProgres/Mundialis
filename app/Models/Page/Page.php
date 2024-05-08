@@ -18,7 +18,7 @@ class Page extends Model {
      * @var array
      */
     protected $fillable = [
-        'category_id', 'title', 'summary', 'is_visible', 'parent_id', 'image_id',
+        'category_id', 'title', 'summary', 'is_visible', 'parent_id', 'image_id', 'sale_value',
     ];
 
     /**

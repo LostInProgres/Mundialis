@@ -101,6 +101,8 @@ class PageManager extends Service {
                 }
             }
 
+            $data['sale_value'] = $data['sale_value'] ?? 0;
+
             // Process links
             if (isset($data['data']['links'])) {
                 $data['data']['links'] = $this->processLinks($page, $data['data']['links']);
@@ -172,6 +174,8 @@ class PageManager extends Service {
             } else {
                 $data['version'] = null;
             }
+
+            $data['sale_value'] = $data['sale_value'] ?? 0;
 
             // Ascertain cause of version broadly
             if ($data['data'] == $page->data) {

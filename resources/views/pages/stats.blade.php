@@ -32,6 +32,10 @@
                 <td>{{ $page->version->length }}</td>
             </tr>
             <tr>
+                <td>Length</td>
+                <td>{{ $page->version->length }}</td>
+            </tr>
+            <tr>
                 <td>Edits</td>
                 <td>{{ $page->version->where('page_id', $page->id)->count() }}</td>
             </tr>

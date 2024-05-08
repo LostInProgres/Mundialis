@@ -213,7 +213,7 @@ class PageController extends Controller {
         // Set any un-set toggles (since Laravel does not pass anything on for them),
         // and collect any custom validation rules for the configured fields
         $answerArray = ['title', 'summary', 'description', 'category_id', 'is_visible',
-            'parent_id', 'page_tag', 'utility_tag', 'reason', 'is_minor', ];
+            'parent_id', 'page_tag', 'utility_tag', 'reason', 'is_minor', 'is_minor', 'sale_value',];
         $validationRules = ($id ? Page::$updateRules : Page::$createRules);
         foreach ($category->formFields as $key=>$field) {
             $answerArray[] = $key;

@@ -47,6 +47,11 @@
         {!! Form::text('summary', $page->summary, ['class' => 'form-control']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::label('Purchase Value') !!}
+        {!! Form::text('sale_value', $page->sale_value, ['class' => 'form-control']) !!}
+    </div>
+
     <p>When editing fields from this point on, wiki link syntax can be used to create links to other pages on this site, and
         in fact is encouraged; not only is it convenient, links created this way are tracked by the site for various
         purposes, not the least of which is tracking wanted pages (pages which have been linked to using this system but
