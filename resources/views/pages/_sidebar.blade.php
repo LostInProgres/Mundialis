@@ -9,6 +9,8 @@
                     class="{{ set_active('pages/' . $page->id . '.' . $page->slug) }}">Read Page</a></div>
             <div class="sidebar-item"><a href="{{ url('pages/' . $page->id . '/history') }}"
                     class="{{ set_active('pages/' . $page->id . '/history*') }}">History</a></div>
+            <div class="sidebar-item"><a href="{{ url('pages/' . $page->id . '/stats') }}"
+                    class="{{ set_active('pages/' . $page->id . '/stats*') }}">stats</a></div>
             <div class="sidebar-item"><a href="{{ url('pages/' . $page->id . '/gallery') }}"
                     class="{{ set_active('pages/' . $page->id . '/gallery*') }}">Gallery</a></div>
             @if ($page->category->subject['key'] == 'people')

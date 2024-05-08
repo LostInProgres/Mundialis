@@ -161,7 +161,7 @@
     <div class="row">
         <div class="col-md">
             <div class="form-group">
-                {!! Form::checkbox('is_ref', 0, $image->id ? $image->pivot->is_ref : 0, [
+                {!! Form::checkbox('is_ref', 1, $image->id ? $image->pivot->is_ref : 0, [
                     'class' => 'form-check-input',
                     'data-toggle' => 'toggle',
                 ]) !!}

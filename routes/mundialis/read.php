@@ -31,6 +31,9 @@ Route::group(['namespace' => 'Pages'], function () {
         Route::get('{id}.', 'PageController@getPage');
         Route::get('{id}.{slug?}', 'PageController@getPage');
 
+        Route::get('{id}/stats', 'StatsController@getStatsPage')
+            ->whereNumber('id');
+
         Route::get('{id}/gallery', 'ImageController@getPageGallery')
             ->whereNumber('id');
         Route::get('{page_id}/gallery/{id}', 'ImageController@getPageImage')

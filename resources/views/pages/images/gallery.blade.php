@@ -22,19 +22,6 @@
 
     @include('pages._page_header', ['section' => 'Gallery'])
 
-    <p>This page currently has {{ $page->images()->visible(Auth::check() ? Auth::user() : null)->count() }} gallery pieces, totalling a value of ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->sum('sale_value') }}.</p>
-    <p>
-        {{ $page->images()->where('transfer_type', '=', 'commission')->count() }} of these pieces were commisioned, for a total value of ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->where('transfer_type', '=', 'commission')->sum('sale_value') }}.<br>
-        {{ $page->images()->where('transfer_type', '=', 'art Trade')->count() }} of these pieces were traded for, for a total value of ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->where('transfer_type', '=', 'art Trade')->sum('sale_value') }}.<br>
-        {{ $page->images()->where('transfer_type', '=', 'owner')->count() }} of these pieces were drawn by their current owner, for a total estimated value of ${{ $page->images()->visible(Auth::check() ? Auth::user() : null)->where('transfer_type', '=', 'owner')->sum('sale_value') }}.<br>
-        {{ $page->images()->where('transfer_type', '=', 'art game')->count() }} of these pieces were obtained during art games.<br>
-        {{ $page->images()->where('transfer_type', '=', 'freebie')->count() }} of these pieces were gifted for free.<br>
-    </p>
-
-    <p> 
-        This character originally had {{ $page->images()->where('transfer_type', '=', 'original')->count() }} images upon purchase.
-    </p>
-
     <p>
         The following are all the images associated with this page. Click an image's thumbnail for more information about it.
     </p>
